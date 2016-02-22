@@ -8,5 +8,6 @@ if __name__ == "__main__":
     pygame.init()
     game = RushGame(800,600)
     pygameDisplay = pygame.display.set_mode((game.height,game.width))
-
+    while 1:
+        pass
 
