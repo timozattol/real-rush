@@ -7,28 +7,28 @@ from rush_game import RushGame
 import colors
 
 if __name__ == "__main__":
-    
+
     # Tell X11 to center window
     os.environ['SDL_VIDEO_CENTERED'] = '1'
 
     pygame.init()
 
     # Game base settings
-    frameRate = 60
-    frameMode = pygame.NOFRAME
-    windowSize = (800,600)
+    frame_rate = 60
+    frame_mode = pygame.NOFRAME
+    window_size = (800, 600)
 
-    game = RushGame(windowSize)
+    game = RushGame(window_size)
 
     # Set up the display
-    pygameDisplay = pygame.display.set_mode((windowSize),frameMode)
+    pygame_display = pygame.display.set_mode((window_size), frame_mode)
     pygame.display.set_caption("Real Rush")
 
     running = True
 
 
     while running:
-        
+
         pygame.display.update()
 
 
@@ -39,7 +39,7 @@ if __name__ == "__main__":
                 if event.key == pygame.K_ESCAPE:
                     running = False
 
-        pygameDisplay.fill(colors.white) 
+        pygame_display.fill(colors.white)
 
 
 
