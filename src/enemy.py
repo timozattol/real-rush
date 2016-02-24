@@ -1,6 +1,8 @@
+"""Enemy class"""
 class Enemy:
 
-    def __init__(self, hp, damage, speed):
-        self.hp = hp
+    """Constructor"""
+    def __init__(self, hitpoints, damage, speed):
+        self.hitpoints = hitpoints
         self.damage = damage
         self.speed = speed

@@ -1,7 +1,8 @@
+"""Real-Rush main module"""
 #!/usr/bin/env python3
 
-import pygame
 import os
+import pygame
 
 from rush_game import RushGame
 import colors
@@ -14,33 +15,32 @@ if __name__ == "__main__":
     pygame.init()
 
     # Game base settings
-    frame_rate = 60
-    frame_mode = pygame.NOFRAME
-    window_size = (800, 600)
+    FRAME_RATE = 60
+    FRAME_MODE = pygame.NOFRAME
+    WINDOW_SIZE = (800, 600)
 
-    game = RushGame(window_size)
+    GAME = RushGame(WINDOW_SIZE)
 
     # Set up the display
-    pygame_display = pygame.display.set_mode((window_size), frame_mode)
+    PYGAME_DISPLAY = pygame.display.set_mode((WINDOW_SIZE), FRAME_MODE)
     pygame.display.set_caption("Real Rush")
 
-    running = True
+    RUNNING = True
 
 
-    while running:
+    while RUNNING:
 
         pygame.display.update()
 
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                RUNNING = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    running = False
+                    RUNNING = False
 
-        pygame_display.fill(colors.white)
-
+        PYGAME_DISPLAY.fill(colors.WHITE)
 
 
     pygame.quit()
