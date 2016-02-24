@@ -25,12 +25,11 @@ if __name__ == "__main__":
     PYGAME_DISPLAY = pygame.display.set_mode((WINDOW_SIZE), FRAME_MODE)
     pygame.display.set_caption("Real Rush")
 
+    PYGAME_DISPLAY.fill(colors.WHITE)
     RUNNING = True
-
+    CLOCK = pygame.time.Clock()
 
     while RUNNING:
-
-        pygame.display.update()
 
 
         for event in pygame.event.get():
@@ -40,7 +39,9 @@ if __name__ == "__main__":
                 if event.key == pygame.K_ESCAPE:
                     RUNNING = False
 
-        PYGAME_DISPLAY.fill(colors.WHITE)
+        CLOCK.tick(FRAME_RATE)
+        pygame.display.update()
+
 
 
     pygame.quit()
