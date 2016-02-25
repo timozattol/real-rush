@@ -1,4 +1,6 @@
 """Hero class"""
+import pygame
+
 class Hero:
 
     """Constructor"""
