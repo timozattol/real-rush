@@ -54,9 +54,18 @@ if __name__ == "__main__":
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     RUNNING = False
+                if event.key == pygame.K_d:
+                    BLOCK_TEST.move_left(1)
+        KEYS_PRESSED = pygame.key.get_pressed()  #checking pressed keys
+        if KEYS_PRESSED[pygame.K_d]:
+            BLOCK_TEST.move_right(2)
+        if KEYS_PRESSED[pygame.K_s]:
+            BLOCK_TEST.move_down(2)
+        if KEYS_PRESSED[pygame.K_a]:
+            BLOCK_TEST.move_left(2)
 
-        BLOCK_TEST.set_center(random.randint(WINDOW_SIZE[0]/2, WINDOW_SIZE[0]/2+40),
-                              random.randint(WINDOW_SIZE[1]/2, WINDOW_SIZE[1]/2+100))
+
+
 
         BLOCK_SPRITE_GROUP.draw(PYGAME_DISPLAY)
         pygame.display.update()
