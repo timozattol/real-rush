@@ -7,7 +7,6 @@ class Block(pygame.sprite.Sprite):
     def __init__(self, color=colors.BLUE, width=16, height=16):
         super(Block, self).__init__()
 
-        #pylint: disable-msg=E1121
         self.image = pygame.Surface((width, height))
         self.image.fill(color)
 
@@ -34,4 +33,8 @@ class Block(pygame.sprite.Sprite):
     def move_down(self, dist):
         """Move block down"""
         self.rect.centery = self.rect.centery + dist
+
+    def jump(self, dist):
+        """Make a jump"""
+        self.rect.centery = self.rect.centery - dist
 

@@ -27,13 +27,13 @@ if __name__ == "__main__":
     PYGAME_DISPLAY = pygame.display.set_mode((WINDOW_SIZE), FRAME_MODE)
     pygame.display.set_caption("Real Rush")
 
-    #pylint: disable-msg=E1121
     BACKGROUND = pygame.Surface(PYGAME_DISPLAY.get_size())
     BACKGROUND = BACKGROUND.convert()
     BACKGROUND.fill(colors.WHITE)
     #Need a class for groups
     BLOCK_SPRITE_GROUP = pygame.sprite.Group()
     BLOCK_TEST = Block()
+    BLOCK_TEST.set_position(200, 200)
     BLOCK_SPRITE_GROUP.add(BLOCK_TEST)
 
 
@@ -47,6 +47,7 @@ if __name__ == "__main__":
     while RUNNING:
 
         CLOCK.tick(FRAME_RATE)
+
         BLOCK_SPRITE_GROUP.clear(PYGAME_DISPLAY, BACKGROUND)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -56,13 +57,27 @@ if __name__ == "__main__":
                     RUNNING = False
                 if event.key == pygame.K_d:
                     BLOCK_TEST.move_left(1)
-        KEYS_PRESSED = pygame.key.get_pressed()  #checking pressed keys
+
+        KEYS_PRESSED = pygame.key.get_pressed()
+
         if KEYS_PRESSED[pygame.K_d]:
+
             BLOCK_TEST.move_right(2)
+
         if KEYS_PRESSED[pygame.K_s]:
-            BLOCK_TEST.move_down(2)
+
+            # This should not be used
+            pass
+
         if KEYS_PRESSED[pygame.K_a]:
+
             BLOCK_TEST.move_left(2)
+
+        if KEYS_PRESSED[pygame.K_w]:
+
+            BLOCK_TEST.jump(2)
+
+
 
 
 
