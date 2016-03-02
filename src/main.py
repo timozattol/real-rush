@@ -55,8 +55,6 @@ if __name__ == "__main__":
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     RUNNING = False
-                if event.key == pygame.K_d:
-                    BLOCK_TEST.move_left(1)
 
         KEYS_PRESSED = pygame.key.get_pressed()
 
