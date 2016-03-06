@@ -66,7 +66,7 @@ if __name__ == "__main__":
             BLOCK_TEST.jump()
 
         # Updates & draw everything in the group
-        BLOCK_SPRITE_GROUP.update(CLOCK.get_time())
+        BLOCK_SPRITE_GROUP.update(CLOCK.get_time() / 1000)
         BLOCK_SPRITE_GROUP.draw(PYGAME_DISPLAY)
         pygame.display.update()
 
