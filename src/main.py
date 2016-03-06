@@ -5,6 +5,7 @@ import os
 import pygame
 
 from rush_game import RushGame
+from player import Player
 from block import Block
 import colors
 import constants
@@ -34,19 +35,29 @@ if __name__ == "__main__":
     BACKGROUND = pygame.transform.scale(BACKGROUND, PYGAME_DISPLAY.get_size())
 
     BACKGROUND_OFFSET = 0
+    # Add the player
+    PLAYER = Player()
 
-    #Need a class for groups
-    BLOCK_SPRITE_GROUP = pygame.sprite.Group()
-    BLOCK_TEST = Block()
-    BLOCK_SPRITE_GROUP.add(BLOCK_TEST)
+    # Need a class for groups
+    PLAYER_SPRITE_GROUP = pygame.sprite.Group()
+    PLAYER_SPRITE_GROUP.add(PLAYER)
 
-    # Set Block height right "on the floor"
-    BLOCK_HEIGHT = WINDOW_SIZE[1] - constants.FLOOR_HEIGHT - BLOCK_TEST.image.get_height()
-    BLOCK_TEST.set_position(constants.BLOCK_LEFT_OFFSET, BLOCK_HEIGHT)
+    # Add some platforms
+    BLOCK = Block()
+    PLATFORM_GROUP = pygame.sprite.Group()
+    PLATFORM_GROUP.add(BLOCK)
+
+
+    # Set Player height right "on the floor"
+    PLAYER_HEIGHT = WINDOW_SIZE[1] - constants.FLOOR_HEIGHT - PLAYER.image.get_height()
+    PLAYER.set_position(constants.PLAYER_LEFT_OFFSET, PLAYER_HEIGHT)
+
+    # Set a platform
+    BLOCK.set_position(200, PLAYER_HEIGHT)
 
     PYGAME_DISPLAY.fill(colors.WHITE)
 
-    BLOCK_SPRITE_GROUP.draw(PYGAME_DISPLAY)
+    PLAYER_SPRITE_GROUP.draw(PYGAME_DISPLAY)
 
     RUNNING = True
     CLOCK = pygame.time.Clock()
@@ -68,7 +79,7 @@ if __name__ == "__main__":
 
         # Jump
         if KEYS_PRESSED[pygame.K_SPACE] or KEYS_PRESSED[pygame.K_w]:
-            BLOCK_TEST.jump()
+            PLAYER.jump()
 
         # Clear Screen
         PYGAME_DISPLAY.fill(colors.WHITE)
@@ -79,9 +90,12 @@ if __name__ == "__main__":
         BACKGROUND_OFFSET += constants.BACKGROUND_SCROLL_SPEED * ELAPSED_TIME
         BACKGROUND_OFFSET %= WINDOW_SIZE[0]
 
-        # Updates & draw everything in the group
-        BLOCK_SPRITE_GROUP.update(ELAPSED_TIME)
-        BLOCK_SPRITE_GROUP.draw(PYGAME_DISPLAY)
+        # Updates & draw the player
+        PLAYER_SPRITE_GROUP.update(ELAPSED_TIME)
+        PLAYER_SPRITE_GROUP.draw(PYGAME_DISPLAY)
+
+        # Update & draw platforms
+        PLATFORM_GROUP.draw(PYGAME_DISPLAY)
         pygame.display.update()
 
 
