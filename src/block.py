@@ -41,23 +41,6 @@ class Block(pygame.sprite.Sprite):
         self.rect.x = pos_x
         self.rect.y = pos_y
 
-    def set_center(self, pos_x, pos_y):
-        """Change position of the center"""
-        self.rect.centerx = pos_x
-        self.rect.centery = pos_y
-
-    def move_right(self, dist):
-        """Move block to the right"""
-        self.rect.centerx = self.rect.centerx + dist
-
-    def move_left(self, dist):
-        """Move block to the left"""
-        self.rect.centerx = self.rect.centerx - dist
-
-    def move_down(self, dist):
-        """Move block down"""
-        self.rect.centery = self.rect.centery + dist
-
     def jump(self):
         """Make a jump"""
         # Can jump only if is running
