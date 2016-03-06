@@ -1,5 +1,5 @@
-"""Real-Rush main module"""
 #!/usr/bin/env python3
+"""Real-Rush main module"""
 
 import os
 import pygame
@@ -26,9 +26,13 @@ if __name__ == "__main__":
     PYGAME_DISPLAY = pygame.display.set_mode((WINDOW_SIZE), FRAME_MODE)
     pygame.display.set_caption("Real Rush")
 
-    BACKGROUND = pygame.Surface(PYGAME_DISPLAY.get_size())
+    BG_IMAGE = pygame.image.load("../assets/urban-background.png")
+    BG_RESOLUTION = (384, 224)
+
+    BACKGROUND = pygame.Surface(BG_RESOLUTION)
     BACKGROUND = BACKGROUND.convert()
-    BACKGROUND.fill(colors.WHITE)
+    BACKGROUND.blit(BG_IMAGE, (0, 0))
+    BACKGROUND = pygame.transform.scale(BACKGROUND, PYGAME_DISPLAY.get_size())
 
     #Need a class for groups
     BLOCK_SPRITE_GROUP = pygame.sprite.Group()
@@ -38,7 +42,6 @@ if __name__ == "__main__":
     # Set Block height right "on the floor"
     BLOCK_HEIGHT = WINDOW_SIZE[1] - constants.FLOOR_HEIGHT - BLOCK_TEST.image.get_height()
     BLOCK_TEST.set_position(constants.BLOCK_LEFT_OFFSET, BLOCK_HEIGHT)
-
 
     PYGAME_DISPLAY.fill(colors.WHITE)
 
@@ -51,7 +54,6 @@ if __name__ == "__main__":
 
         CLOCK.tick(constants.FRAME_RATE)
 
-        BLOCK_SPRITE_GROUP.clear(PYGAME_DISPLAY, BACKGROUND)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 RUNNING = False
@@ -64,6 +66,10 @@ if __name__ == "__main__":
         # Jump
         if KEYS_PRESSED[pygame.K_SPACE] or KEYS_PRESSED[pygame.K_w]:
             BLOCK_TEST.jump()
+
+        # Clear Screen
+        PYGAME_DISPLAY.fill(colors.WHITE)
+        PYGAME_DISPLAY.blit(BACKGROUND, (0, 0))
 
         # Updates & draw everything in the group
         BLOCK_SPRITE_GROUP.update(CLOCK.get_time() / 1000)
