@@ -26,10 +26,9 @@ if __name__ == "__main__":
     PYGAME_DISPLAY = pygame.display.set_mode((WINDOW_SIZE), FRAME_MODE)
     pygame.display.set_caption("Real Rush")
 
-    BG_IMAGE = pygame.image.load("../assets/urban-background.png")
-    BG_RESOLUTION = (384, 224)
+    BG_IMAGE = pygame.image.load(constants.BACKGROUND_LOCATION)
 
-    BACKGROUND = pygame.Surface(BG_RESOLUTION)
+    BACKGROUND = pygame.Surface(constants.BACKGROUND_RESOLUTION)
     BACKGROUND = BACKGROUND.convert()
     BACKGROUND.blit(BG_IMAGE, (0, 0))
     BACKGROUND = pygame.transform.scale(BACKGROUND, PYGAME_DISPLAY.get_size())
@@ -84,7 +83,6 @@ if __name__ == "__main__":
         BLOCK_SPRITE_GROUP.update(ELAPSED_TIME)
         BLOCK_SPRITE_GROUP.draw(PYGAME_DISPLAY)
         pygame.display.update()
-
 
 
     pygame.quit()
