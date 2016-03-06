@@ -34,6 +34,8 @@ if __name__ == "__main__":
     BACKGROUND.blit(BG_IMAGE, (0, 0))
     BACKGROUND = pygame.transform.scale(BACKGROUND, PYGAME_DISPLAY.get_size())
 
+    BACKGROUND_OFFSET = 0
+
     #Need a class for groups
     BLOCK_SPRITE_GROUP = pygame.sprite.Group()
     BLOCK_TEST = Block()
@@ -52,7 +54,9 @@ if __name__ == "__main__":
 
     while RUNNING:
 
+        # Tick Clock
         CLOCK.tick(constants.FRAME_RATE)
+        ELAPSED_TIME = CLOCK.get_time() / 1000
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -69,10 +73,15 @@ if __name__ == "__main__":
 
         # Clear Screen
         PYGAME_DISPLAY.fill(colors.WHITE)
-        PYGAME_DISPLAY.blit(BACKGROUND, (0, 0))
+
+        # Scroll and blit background
+        PYGAME_DISPLAY.blit(BACKGROUND, (-BACKGROUND_OFFSET, 0))
+        PYGAME_DISPLAY.blit(BACKGROUND, (WINDOW_SIZE[0] - BACKGROUND_OFFSET, 0))
+        BACKGROUND_OFFSET += constants.BACKGROUND_SCROLL_SPEED * ELAPSED_TIME
+        BACKGROUND_OFFSET %= WINDOW_SIZE[0]
 
         # Updates & draw everything in the group
-        BLOCK_SPRITE_GROUP.update(CLOCK.get_time() / 1000)
+        BLOCK_SPRITE_GROUP.update(ELAPSED_TIME)
         BLOCK_SPRITE_GROUP.draw(PYGAME_DISPLAY)
         pygame.display.update()
 
