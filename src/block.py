@@ -1,6 +1,7 @@
 """Block class used for debug"""
 import pygame
 import colors
+import constants
 
 class Block(pygame.sprite.Sprite):
     """Main constructor"""
@@ -11,6 +12,29 @@ class Block(pygame.sprite.Sprite):
         self.image.fill(color)
 
         self.rect = self.image.get_rect()
+
+        self.state = "running"
+
+        # The floor is scrolling left, thus velocity = 0 in x-axis
+        self.velocity = (0, 0)
+
+    def update(self, elapsed_time):
+        """ Update the sprite at every frame, according to elapsed_time between
+        last frame and current frame """
+        # Move according to velocity
+        self.rect.move_ip(self.velocity[0] * elapsed_time, self.velocity[1] * elapsed_time)
+
+        # If touches floor, is running
+        if self.is_on_floor():
+            self.velocity = (0, 0)
+            self.state = "running"
+        # If in the air, subject to gravity
+        else:
+            self.velocity = (self.velocity[0], self.velocity[1] + (constants.GRAVITY * elapsed_time))
+
+
+    def is_on_floor(self):
+        return self.rect.bottom > constants.WINDOW_SIZE[1] - constants.FLOOR_HEIGHT
 
     def set_position(self, pos_x, pos_y):
         """Change position of the rectangle"""
@@ -34,7 +58,9 @@ class Block(pygame.sprite.Sprite):
         """Move block down"""
         self.rect.centery = self.rect.centery + dist
 
-    def jump(self, dist):
+    def jump(self):
         """Make a jump"""
-        self.rect.centery = self.rect.centery - dist
-
+        # Can jump only if is running
+        if self.state == "running":
+            self.state = "jumping"
+            self.velocity = (self.velocity[0], -constants.JUMPING_POWER)

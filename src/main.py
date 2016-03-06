@@ -2,12 +2,12 @@
 #!/usr/bin/env python3
 
 import os
-import random
 import pygame
 
 from rush_game import RushGame
-import colors
 from block import Block
+import colors
+import constants
 
 if __name__ == "__main__":
 
@@ -17,9 +17,8 @@ if __name__ == "__main__":
     pygame.init()
 
     # Game base settings
-    FRAME_RATE = 60
     FRAME_MODE = pygame.NOFRAME
-    WINDOW_SIZE = (800, 600)
+    WINDOW_SIZE = constants.WINDOW_SIZE
 
     GAME = RushGame(WINDOW_SIZE)
 
@@ -30,11 +29,15 @@ if __name__ == "__main__":
     BACKGROUND = pygame.Surface(PYGAME_DISPLAY.get_size())
     BACKGROUND = BACKGROUND.convert()
     BACKGROUND.fill(colors.WHITE)
+
     #Need a class for groups
     BLOCK_SPRITE_GROUP = pygame.sprite.Group()
     BLOCK_TEST = Block()
-    BLOCK_TEST.set_position(200, 200)
     BLOCK_SPRITE_GROUP.add(BLOCK_TEST)
+
+    # Set Block height right "on the floor"
+    BLOCK_HEIGHT = WINDOW_SIZE[1] - constants.FLOOR_HEIGHT - BLOCK_TEST.image.get_height()
+    BLOCK_TEST.set_position(constants.BLOCK_LEFT_OFFSET, BLOCK_HEIGHT)
 
 
     PYGAME_DISPLAY.fill(colors.WHITE)
@@ -46,7 +49,7 @@ if __name__ == "__main__":
 
     while RUNNING:
 
-        CLOCK.tick(FRAME_RATE)
+        CLOCK.tick(constants.FRAME_RATE)
 
         BLOCK_SPRITE_GROUP.clear(PYGAME_DISPLAY, BACKGROUND)
         for event in pygame.event.get():
@@ -58,28 +61,12 @@ if __name__ == "__main__":
 
         KEYS_PRESSED = pygame.key.get_pressed()
 
-        if KEYS_PRESSED[pygame.K_d]:
+        # Jump
+        if KEYS_PRESSED[pygame.K_SPACE] or KEYS_PRESSED[pygame.K_w]:
+            BLOCK_TEST.jump()
 
-            BLOCK_TEST.move_right(2)
-
-        if KEYS_PRESSED[pygame.K_s]:
-
-            # This should not be used
-            pass
-
-        if KEYS_PRESSED[pygame.K_a]:
-
-            BLOCK_TEST.move_left(2)
-
-        if KEYS_PRESSED[pygame.K_w]:
-
-            BLOCK_TEST.jump(2)
-
-
-
-
-
-
+        # Updates & draw everything in the group
+        BLOCK_SPRITE_GROUP.update(CLOCK.get_time())
         BLOCK_SPRITE_GROUP.draw(PYGAME_DISPLAY)
         pygame.display.update()
 
