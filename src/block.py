@@ -7,13 +7,14 @@ import constants
 class Block(pygame.sprite.Sprite):
 
     """Constructor"""
-    def __init__(self, color=colors.BLUE, width=16, height=16):
+    def __init__(self, pos, color=colors.BLUE, width=16, height=16):
         super(Block, self).__init__()
 
         self.image = pygame.Surface((width, height))
         self.image.fill(color)
 
         self.rect = self.image.get_rect()
+        self.set_position(*pos)
 
     def set_position(self, pos_x, pos_y):
         """Change position of the rectangle"""

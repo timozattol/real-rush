@@ -7,6 +7,7 @@ import pygame
 from rush_game import RushGame
 from player import Player
 from block import Block
+from level_01 import Level01
 import colors
 import constants
 
@@ -33,27 +34,22 @@ if __name__ == "__main__":
     BACKGROUND = BACKGROUND.convert()
     BACKGROUND.blit(BG_IMAGE, (0, 0))
     BACKGROUND = pygame.transform.scale(BACKGROUND, PYGAME_DISPLAY.get_size())
-
     BACKGROUND_OFFSET = 0
-    # Add the player
-    PLAYER = Player()
 
-    # Need a class for groups
+
+    # Add the player
+    PLAYER = Player() 
     PLAYER_SPRITE_GROUP = pygame.sprite.Group()
     PLAYER_SPRITE_GROUP.add(PLAYER)
-
-    # Add some platforms
-    BLOCK = Block()
-    PLATFORM_GROUP = pygame.sprite.Group()
-    PLATFORM_GROUP.add(BLOCK)
-
-
     # Set Player height right "on the floor"
     PLAYER_HEIGHT = WINDOW_SIZE[1] - constants.FLOOR_HEIGHT - PLAYER.image.get_height()
     PLAYER.set_position(constants.PLAYER_LEFT_OFFSET, PLAYER_HEIGHT)
 
-    # Set a platform
-    BLOCK.set_position(200, PLAYER_HEIGHT)
+    # List of Levels
+    LEVELS = []
+    LEVELS.append(Level01(PLAYER))
+    
+    
 
     PYGAME_DISPLAY.fill(colors.WHITE)
 
@@ -95,7 +91,6 @@ if __name__ == "__main__":
         PLAYER_SPRITE_GROUP.draw(PYGAME_DISPLAY)
 
         # Update & draw platforms
-        PLATFORM_GROUP.draw(PYGAME_DISPLAY)
         pygame.display.update()
 
 

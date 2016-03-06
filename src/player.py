@@ -26,7 +26,9 @@ class Player(pygame.sprite.Sprite):
 
         # If touches floor, is running
         if self.is_on_floor():
-            self.set_position(self.rect.x,constants.WINDOW_SIZE[1] - constants.FLOOR_HEIGHT - self.image.get_height())
+            self.set_position(self.rect.x, constants.WINDOW_SIZE[1] \
+            - constants.FLOOR_HEIGHT - self.image.get_height())
+
             self.velocity = (0, 0)
             self.state = "running"
         # If in the air, subject to gravity
