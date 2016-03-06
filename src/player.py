@@ -1,7 +1,7 @@
 """Hero class"""
 import pygame
 
-class Hero:
+class Player:
 
     """Constructor"""
     def __init__(self, lives, stamina):
