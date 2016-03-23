@@ -2,14 +2,22 @@
 import pygame
 import colors
 import constants
+from sprite_sheet import SpriteSheetLoader
 
 class Player(pygame.sprite.Sprite):
     """Main constructor"""
     def __init__(self, color=colors.BLUE, width=16, height=16, lives=3, stamina=2):
         super(Player, self).__init__()
 
-        self.image = pygame.Surface((width, height))
-        self.image.fill(color)
+        running_positions = [
+            (4, 0), (5, 0), (6, 0), (7, 0),
+            (0, 1), (1, 1), (2, 1), (3, 1),
+        ]
+        loader = SpriteSheetLoader("../assets/player_spritesheet.png", (512, 576), (64, 64))
+
+        self.run_sprites = loader.load_sprites(running_positions)
+        self.sprite_index = 0
+        self.image = self.run_sprites[self.sprite_index]
 
         self.rect = self.image.get_rect()
 
@@ -24,18 +32,22 @@ class Player(pygame.sprite.Sprite):
         # Move according to velocity
         self.rect.move_ip(self.velocity[0] * elapsed_time, self.velocity[1] * elapsed_time)
 
-        # If touches floor, is running
-        if self.is_on_floor():
+        # If not running and touches floor, starts running
+        if self.state != "running" and self.is_on_floor():
             self.set_position(self.rect.x, constants.WINDOW_SIZE[1] \
             - constants.FLOOR_HEIGHT - self.image.get_height())
 
             self.velocity = (0, 0)
             self.state = "running"
-        # If in the air, subject to gravity
-        else:
+        # Else if jumping, subject to gravity
+        elif self.state == "jumping":
             self.velocity = (self.velocity[0], self.velocity[1] \
             + (constants.GRAVITY * elapsed_time))
 
+        # Update sprite
+        #TODO use elapsed_time for slower & unified updates
+        self.sprite_index = (self.sprite_index + 1) % len(self.run_sprites)
+        self.image = self.run_sprites[self.sprite_index]
 
     def is_on_floor(self):
         return self.rect.bottom > constants.WINDOW_SIZE[1] - constants.FLOOR_HEIGHT
