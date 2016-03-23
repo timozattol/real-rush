@@ -1,6 +1,7 @@
 import pygame
 
 class SpriteSheetLoader:
+    """ Loads pygame images from sprite sheets """
 
     def __init__(self, path, im_size, sprite_size):
         self.sheet = pygame.image.load(path).convert_alpha()
@@ -21,6 +22,7 @@ class SpriteSheetLoader:
         return sprite
 
     def load_sprites(self, positions):
+        """ Returns a list of multiple sprite images at positions positions """
         sprites = []
         for position in positions:
             sprites.append(self.load_sprite(position))
