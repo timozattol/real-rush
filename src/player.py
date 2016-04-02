@@ -4,6 +4,9 @@ import colors
 import constants
 from sprite_sheet import SpriteSheetLoader
 
+# Duration before sprite animation changes
+SPRITE_ANIM_DURATION = 0.035
+
 class Player(pygame.sprite.Sprite):
     """Main constructor"""
     def __init__(self, color=colors.BLUE, width=16, height=16, lives=3, stamina=2):
@@ -17,6 +20,7 @@ class Player(pygame.sprite.Sprite):
 
         self.run_sprites = loader.load_sprites(running_positions)
         self.sprite_index = 0
+        self.sprite_elapsed_time = 0
         self.image = self.run_sprites[self.sprite_index]
 
         self.rect = self.image.get_rect()
@@ -44,10 +48,14 @@ class Player(pygame.sprite.Sprite):
             self.velocity = (self.velocity[0], self.velocity[1] \
             + (constants.GRAVITY * elapsed_time))
 
-        # Update sprite
-        #TODO use elapsed_time for slower & unified updates
-        self.sprite_index = (self.sprite_index + 1) % len(self.run_sprites)
-        self.image = self.run_sprites[self.sprite_index]
+        # Update sprite elapsed time
+        self.sprite_elapsed_time += elapsed_time
+
+        # Animate sprite if enough elapsed time
+        if self.sprite_elapsed_time >= SPRITE_ANIM_DURATION:
+            self.sprite_elapsed_time = 0
+            self.sprite_index = (self.sprite_index + 1) % len(self.run_sprites)
+            self.image = self.run_sprites[self.sprite_index]
 
     def is_on_floor(self):
         return self.rect.bottom > constants.WINDOW_SIZE[1] - constants.FLOOR_HEIGHT
