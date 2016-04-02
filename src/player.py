@@ -16,9 +16,20 @@ class Player(pygame.sprite.Sprite):
             (4, 0), (5, 0), (6, 0), (7, 0),
             (0, 1), (1, 1), (2, 1), (3, 1),
         ]
+
+        jumping_positions = [
+            (2, 5), (3, 5), (4, 5), (5, 5), (6, 5), (7, 5)
+        ]
+
+        standing_positions = [
+            (0, 8)
+        ]
+
         loader = SpriteSheetLoader("../assets/player_spritesheet.png", (512, 576), (64, 64))
 
         self.run_sprites = loader.load_sprites(running_positions)
+        self.jump_sprites = loader.load_sprites(jumping_positions)
+        self.stand_sprites = loader.load_sprites(standing_positions)
         self.sprite_index = 0
         self.sprite_elapsed_time = 0
         self.image = self.run_sprites[self.sprite_index]
@@ -54,8 +65,19 @@ class Player(pygame.sprite.Sprite):
         # Animate sprite if enough elapsed time
         if self.sprite_elapsed_time >= SPRITE_ANIM_DURATION:
             self.sprite_elapsed_time = 0
-            self.sprite_index = (self.sprite_index + 1) % len(self.run_sprites)
-            self.image = self.run_sprites[self.sprite_index]
+
+            # Animate sprite according to current state
+            if self.state == "running":
+                self.sprite_index = (self.sprite_index + 1) % len(self.run_sprites)
+                self.image = self.run_sprites[self.sprite_index]
+            elif self.state == "jumping":
+                # TODO factor out a set of sprite images into a class SpriteAnimation,
+                # and allow for "non loop" animations (for jumping)
+                self.sprite_index = (self.sprite_index + 1) % len(self.jump_sprites)
+                self.image = self.jump_sprites[self.sprite_index]
+            else:
+                self.sprite_index = 0
+                self.image = self.stand_sprites[0]
 
     def is_on_floor(self):
         return self.rect.bottom > constants.WINDOW_SIZE[1] - constants.FLOOR_HEIGHT
