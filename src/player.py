@@ -73,7 +73,9 @@ class Player(pygame.sprite.Sprite):
             elif self.state == "jumping":
                 # TODO factor out a set of sprite images into a class SpriteAnimation,
                 # and allow for "non loop" animations (for jumping)
-                self.sprite_index = (self.sprite_index + 1) % len(self.jump_sprites)
+                self.sprite_index = (self.sprite_index + 1)
+                if self.sprite_index >= len(self.jump_sprites):
+                    self.sprite_index = len(self.jump_sprites) - 1
                 self.image = self.jump_sprites[self.sprite_index]
             else:
                 self.sprite_index = 0
