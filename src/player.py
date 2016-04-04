@@ -2,7 +2,7 @@
 import pygame
 import colors
 import constants
-from sprite_sheet import SpriteSheetLoader
+from sprites import SpriteSheetLoader, SpriteAnimation
 
 # Duration before sprite animation changes
 SPRITE_ANIM_DURATION = 0.035
@@ -11,6 +11,9 @@ class Player(pygame.sprite.Sprite):
     """Main constructor"""
     def __init__(self, color=colors.BLUE, width=16, height=16, lives=3, stamina=2):
         super(Player, self).__init__()
+
+        loader = SpriteSheetLoader("../assets/player_spritesheet.png",
+                                   (512, 576), (64, 64))
 
         running_positions = [
             (4, 0), (5, 0), (6, 0), (7, 0),
@@ -25,18 +28,22 @@ class Player(pygame.sprite.Sprite):
             (0, 8)
         ]
 
-        loader = SpriteSheetLoader("../assets/player_spritesheet.png", (512, 576), (64, 64))
 
-        self.run_sprites = loader.load_sprites(running_positions)
-        self.jump_sprites = loader.load_sprites(jumping_positions)
-        self.stand_sprites = loader.load_sprites(standing_positions)
-        self.sprite_index = 0
+        # Animations
+        self.run_animation = SpriteAnimation(loader, running_positions,
+                                              looping=True)
+        self.jump_animation = SpriteAnimation(loader, jumping_positions,
+                                              looping=False)
+        self.stand_animation = SpriteAnimation(loader, standing_positions,
+                                              looping=True)
+
+        # Elapsed time since last sprite animation
         self.sprite_elapsed_time = 0
-        self.image = self.run_sprites[self.sprite_index]
 
-        self.rect = self.image.get_rect()
-
+        # Start with a running image
         self.state = "running"
+        self.image = self.run_animation.next_image()
+        self.rect = self.image.get_rect()
 
         # The floor is scrolling left, thus velocity = 0 in x-axis
         self.velocity = (0, 0)
@@ -68,18 +75,11 @@ class Player(pygame.sprite.Sprite):
 
             # Animate sprite according to current state
             if self.state == "running":
-                self.sprite_index = (self.sprite_index + 1) % len(self.run_sprites)
-                self.image = self.run_sprites[self.sprite_index]
+                self.image = self.run_animation.next_image()
             elif self.state == "jumping":
-                # TODO factor out a set of sprite images into a class SpriteAnimation,
-                # and allow for "non loop" animations (for jumping)
-                self.sprite_index = (self.sprite_index + 1)
-                if self.sprite_index >= len(self.jump_sprites):
-                    self.sprite_index = len(self.jump_sprites) - 1
-                self.image = self.jump_sprites[self.sprite_index]
+                self.image = self.jump_animation.next_image()
             else:
-                self.sprite_index = 0
-                self.image = self.stand_sprites[0]
+                self.image = self.stand_animation.next_image()
 
     def is_on_floor(self):
         return self.rect.bottom > constants.WINDOW_SIZE[1] - constants.FLOOR_HEIGHT

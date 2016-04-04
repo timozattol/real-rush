@@ -28,3 +28,26 @@ class SpriteSheetLoader:
             sprites.append(self.load_sprite(position))
 
         return sprites
+
+class SpriteAnimation:
+    """Set of animated sprite images"""
+    def __init__(self, sheet_loader, positions_list, looping=True):
+        self.images = sheet_loader.load_sprites(positions_list)
+        self.index = 0
+        self.looping = looping
+
+    def next_image(self):
+        """ Returns next image in the animation """
+        image = self.images[self.index]
+        self.index += 1
+
+        # If index out of bounds
+        if self.index >= len(self.images):
+            # If looping, then go back to start
+            if self.looping:
+                self.index = 0
+            # Not looping, then stay at the end
+            else:
+                self.index = len(self.images) - 1
+
+        return image
