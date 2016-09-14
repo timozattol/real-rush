@@ -16,7 +16,14 @@ class Level01(Level):
         BLUE_BLOCK_PREFAB = BlockPrefab(1, 2, colors.BLUE)
 
         # Sprites of the level
-        sprites = [BLUE_BLOCK_PREFAB.new_sprite((5, 2)), BLUE_BLOCK_PREFAB.new_sprite((10, 2))]
+        sprites = [
+            BLUE_BLOCK_PREFAB.new_sprite((10, 2)),
+            BLUE_BLOCK_PREFAB.new_sprite((20, 2)),
+            BLUE_BLOCK_PREFAB.new_sprite((25, 4)),
+            BLUE_BLOCK_PREFAB.new_sprite((30, 4)),
+            BLUE_BLOCK_PREFAB.new_sprite((35, 2)),
+            BLUE_BLOCK_PREFAB.new_sprite((40, 4)),
+        ]
 
         for sprite in sprites:
             self.object_group.add(sprite)
