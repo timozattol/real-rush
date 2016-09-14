@@ -6,6 +6,8 @@ class Level(object):
         self.object_group = pygame.sprite.Group()
         self.player_object = player
 
-    def update(self):
+    def update(self, elapsed_time):
         self.object_group.update()
 
+    def draw(self, display):
+        self.object_group.draw(display)

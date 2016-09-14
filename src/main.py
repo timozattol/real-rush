@@ -73,7 +73,7 @@ if __name__ == "__main__":
         # Jump
         if KEYS_PRESSED[pygame.K_SPACE] or KEYS_PRESSED[pygame.K_w]:
             PLAYER.jump()
-        if KEYS_PRESSED[pygame.K_k]: 
+        if KEYS_PRESSED[pygame.K_k]:
             PLAYER.kill()
         if KEYS_PRESSED[pygame.K_r]:
             level.reset()   
@@ -86,6 +86,10 @@ if __name__ == "__main__":
         PYGAME_DISPLAY.blit(BACKGROUND, (WINDOW_SIZE[0] - BACKGROUND_OFFSET, 0))
         BACKGROUND_OFFSET += constants.BACKGROUND_SCROLL_SPEED * ELAPSED_TIME
         BACKGROUND_OFFSET %= WINDOW_SIZE[0]
+
+        # Update & draw the level
+        level.update(ELAPSED_TIME)
+        level.draw(PYGAME_DISPLAY)
 
         # Updates & draw the player
         PLAYER_SPRITE_GROUP.update(ELAPSED_TIME)

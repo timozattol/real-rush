@@ -1,21 +1,16 @@
 """Level 1 class"""
-import pygame
-import constants
 import colors
 from level import Level
-from block import Block
+from prefabs import BlockPrefab
 
 class Level01(Level):
     def __init__(self, player):
         super(Level01, self).__init__(player)
 
-        # Objects of the level
-        level = [[(200, 600), colors.BLACK, 16, 16]]
+        BLUE_BLOCK_PREFAB = BlockPrefab(1, 2, colors.BLUE)
 
-        for obj in level:
-            obj = Block(obj[0], obj[1], obj[2], obj[3])
-            self.object_group.add(obj)
+        # Sprites of the level
+        sprites = [BLUE_BLOCK_PREFAB.new_sprite((2, 2)), BLUE_BLOCK_PREFAB.new_sprite((5, 2))]
 
-    def update(self):
-        self.object_group.update()
-
+        for sprite in sprites:
+            self.object_group.add(sprite)
