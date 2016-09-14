@@ -28,6 +28,11 @@ class Player(pygame.sprite.Sprite):
             (0, 8)
         ]
 
+        dying_positions = [
+                (0, 2),(1, 2),(2, 2),(3, 2),(4, 2),(5, 2),(6, 2),(7, 2)
+        ]
+
+
 
         # Animations
         self.run_animation = SpriteAnimation(loader, running_positions,
@@ -36,6 +41,7 @@ class Player(pygame.sprite.Sprite):
                                               looping=False)
         self.stand_animation = SpriteAnimation(loader, standing_positions,
                                               looping=True)
+        self.die_animation = SpriteAnimation(loader, dying_positions,looping=False)
 
         # Elapsed time since last sprite animation
         self.sprite_elapsed_time = 0
@@ -78,8 +84,8 @@ class Player(pygame.sprite.Sprite):
                 self.image = self.run_animation.next_image()
             elif self.state == "jumping":
                 self.image = self.jump_animation.next_image()
-            else:
-                self.image = self.stand_animation.next_image()
+            elif self.state == "dead":
+                self.image = self.die_animation.next_image()
 
     def is_on_floor(self):
         return self.rect.bottom > constants.WINDOW_SIZE[1] - constants.FLOOR_HEIGHT
@@ -95,3 +101,6 @@ class Player(pygame.sprite.Sprite):
         if self.state == "running":
             self.state = "jumping"
             self.velocity = (self.velocity[0], -constants.JUMPING_POWER)
+    def kill(self):
+        self.velocity = (0, 0)
+        self.state = "dead"

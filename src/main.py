@@ -75,6 +75,8 @@ if __name__ == "__main__":
             PLAYER.jump()
         if KEYS_PRESSED[pygame.K_k]: 
             PLAYER.kill()
+        if KEYS_PRESSED[pygame.K_r]:
+            level.reset()   
 
         # Clear Screen
         PYGAME_DISPLAY.fill(colors.WHITE)
