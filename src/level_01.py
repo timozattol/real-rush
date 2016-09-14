@@ -13,20 +13,28 @@ class Level01(Level):
     def __init__(self, player, display):
         super().__init__(player, display)
 
-        BLUE_BLOCK_PREFAB = BlockPrefab(1, 2, colors.BLUE)
+        BLUE_PREFAB = BlockPrefab(1, 2, colors.RED)
+        BLACK_PREFAB = BlockPrefab(2, 2, colors.BLACK)
 
         # Sprites of the level
-        sprites = [
-            BLUE_BLOCK_PREFAB.new_sprite((10, 2)),
-            BLUE_BLOCK_PREFAB.new_sprite((20, 2)),
-            BLUE_BLOCK_PREFAB.new_sprite((25, 4)),
-            BLUE_BLOCK_PREFAB.new_sprite((30, 4)),
-            BLUE_BLOCK_PREFAB.new_sprite((35, 2)),
-            BLUE_BLOCK_PREFAB.new_sprite((40, 4)),
+        deadly_sprites = [
+            BLUE_PREFAB.new_sprite((10, 2)),
+            BLUE_PREFAB.new_sprite((20, 2)),
+            BLUE_PREFAB.new_sprite((25, 4)),
+            BLUE_PREFAB.new_sprite((30, 4)),
+            BLUE_PREFAB.new_sprite((35, 2)),
+            BLUE_PREFAB.new_sprite((40, 4)),
         ]
 
-        for sprite in sprites:
-            self.object_group.add(sprite)
+        platform_sprites = [
+            BLACK_PREFAB.new_sprite((5, 2))
+        ]
+
+        for sprite in deadly_sprites:
+            self.deadly_blocks.add(sprite)
+
+        for sprite in platform_sprites:
+            self.platform_blocks.add(sprite)
 
         # Background
         self.bg = pygame.Surface(BG_RESOLUTION)
