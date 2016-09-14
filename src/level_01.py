@@ -26,7 +26,8 @@ class Level01(Level):
         self.bg = pygame.Surface(BG_RESOLUTION)
         self.bg = self.bg.convert()
         self.bg.blit(BG_IMAGE, (0, 0))
-        self.bg = pygame.transform.scale(self.bg, self.display.get_size())
+        ratio = self.display.get_size()[1] / BG_RESOLUTION[1]
+        self.bg = pygame.transform.scale(self.bg, (int(BG_RESOLUTION[0] * ratio), int(BG_RESOLUTION[1] * ratio)))
         self.bg_offset = 0
 
 
@@ -35,6 +36,6 @@ class Level01(Level):
 
         # Scroll and blit background
         self.display.blit(self.bg, (-self.bg_offset, 0))
-        self.display.blit(self.bg, (WINDOW_SIZE[0] - self.bg_offset, 0))
+        self.display.blit(self.bg, (self.bg.get_width() - self.bg_offset, 0))
         self.bg_offset += BG_SCROLL_SPEED * elapsed_time
-        self.bg_offset %= WINDOW_SIZE[0]
+        self.bg_offset %= self.bg.get_width()
