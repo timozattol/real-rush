@@ -14,20 +14,25 @@ class Level01(Level):
         super().__init__(player, display)
 
         BLUE_PREFAB = BlockPrefab(1, 2, colors.RED)
-        BLACK_PREFAB = BlockPrefab(2, 2, colors.BLACK)
+        BLACK_PREFAB = BlockPrefab(5, 2, colors.BLACK)
 
         # Sprites of the level
         deadly_sprites = [
-            BLUE_PREFAB.new_sprite((10, 2)),
             BLUE_PREFAB.new_sprite((20, 2)),
             BLUE_PREFAB.new_sprite((25, 4)),
             BLUE_PREFAB.new_sprite((30, 4)),
             BLUE_PREFAB.new_sprite((35, 2)),
             BLUE_PREFAB.new_sprite((40, 4)),
+            BLUE_PREFAB.new_sprite((50, 2)),
+            BLUE_PREFAB.new_sprite((60, 2)),
+            BLUE_PREFAB.new_sprite((100, 4)),
+            BLUE_PREFAB.new_sprite((120, 4)),
+            BLUE_PREFAB.new_sprite((150, 2)),
+            BLUE_PREFAB.new_sprite((200, 4)),
         ]
 
         platform_sprites = [
-            BLACK_PREFAB.new_sprite((5, 2))
+            BLACK_PREFAB.new_sprite((10, 2))
         ]
 
         for sprite in deadly_sprites:
