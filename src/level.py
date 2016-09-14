@@ -7,9 +7,10 @@ class Level(object):
         self.player = player
         self.player_group = pygame.sprite.Group([player])
         self.display = display
+        self.speed = 0.0
 
     def update(self, elapsed_time):
-        self.object_group.update(elapsed_time)
+        self.object_group.update(self.delta_pos(elapsed_time))
         self.player.update(elapsed_time)
 
     def draw(self):
@@ -19,3 +20,6 @@ class Level(object):
 
         self.object_group.draw(self.display)
         self.player_group.draw(self.display)
+
+    def delta_pos(self, elapsed_time):
+        return self.speed * elapsed_time

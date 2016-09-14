@@ -29,12 +29,17 @@ class Level01(Level):
         self.bg = pygame.transform.scale(self.bg, (int(BG_RESOLUTION[0] * ratio), int(BG_RESOLUTION[1] * ratio)))
         self.bg_offset = 0.0
 
+        self.speed = BG_SCROLL_SPEED
+
 
     def update(self, elapsed_time):
         super().update(elapsed_time)
 
+        if self.player.state == "dead":
+            self.speed = 0.0
+
         # Scroll and blit background
         self.display.blit(self.bg, (-self.bg_offset, 0))
         self.display.blit(self.bg, (self.bg.get_width() - self.bg_offset, 0))
-        self.bg_offset += BG_SCROLL_SPEED * elapsed_time
+        self.bg_offset += self.delta_pos(elapsed_time)
         self.bg_offset %= self.bg.get_width()

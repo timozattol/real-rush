@@ -33,8 +33,7 @@ class Block(Sprite):
         self.pos = pos_convert(pos)
         self.rect.x, self.rect.y = self.pos[0], self.pos[1]
 
-    def update(self, elapsed_time):
-        delta_pos = elapsed_time * BG_SCROLL_SPEED
+    def update(self, delta_pos):
         self.pos = (self.pos[0] - delta_pos, self.pos[1])
         self.rect.x = int(self.pos[0])
         self.rect.y = int(self.pos[1])
