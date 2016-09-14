@@ -73,6 +73,8 @@ if __name__ == "__main__":
         # Jump
         if KEYS_PRESSED[pygame.K_SPACE] or KEYS_PRESSED[pygame.K_w]:
             PLAYER.jump()
+        if KEYS_PRESSED[pygame.K_k]: 
+            PLAYER.kill()
 
         # Clear Screen
         PYGAME_DISPLAY.fill(colors.WHITE)
