@@ -31,18 +31,12 @@ if __name__ == "__main__":
 
     # Add the player
     PLAYER = Player()
-    PLAYER_SPRITE_GROUP = pygame.sprite.Group()
-    PLAYER_SPRITE_GROUP.add(PLAYER)
     # Set Player height right "on the floor"
     PLAYER_HEIGHT = WINDOW_SIZE[1] - constants.FLOOR_HEIGHT - PLAYER.image.get_height()
     PLAYER.set_position(constants.PLAYER_LEFT_OFFSET, PLAYER_HEIGHT)
 
     # Current level
     level = Level01(PLAYER, PYGAME_DISPLAY)
-
-    PYGAME_DISPLAY.fill(colors.WHITE)
-
-    PLAYER_SPRITE_GROUP.draw(PYGAME_DISPLAY)
 
     RUNNING = True
     CLOCK = pygame.time.Clock()
@@ -76,10 +70,6 @@ if __name__ == "__main__":
         # Update & draw the level
         level.update(ELAPSED_TIME)
         level.draw()
-
-        # Updates & draw the player
-        PLAYER_SPRITE_GROUP.update(ELAPSED_TIME)
-        PLAYER_SPRITE_GROUP.draw(PYGAME_DISPLAY)
 
         # Update & draw platforms
         pygame.display.update()
