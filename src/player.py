@@ -10,7 +10,7 @@ SPRITE_ANIM_DURATION = 0.035
 class Player(pygame.sprite.Sprite):
     """Main constructor"""
     def __init__(self, color=colors.BLUE, width=16, height=16, lives=3, stamina=2):
-        super(Player, self).__init__()
+        super().__init__()
 
         loader = SpriteSheetLoader("../assets/player_spritesheet.png",
                                    (512, 576), (64, 64))
