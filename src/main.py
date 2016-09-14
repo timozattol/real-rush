@@ -38,18 +38,15 @@ if __name__ == "__main__":
 
 
     # Add the player
-    PLAYER = Player() 
+    PLAYER = Player()
     PLAYER_SPRITE_GROUP = pygame.sprite.Group()
     PLAYER_SPRITE_GROUP.add(PLAYER)
     # Set Player height right "on the floor"
     PLAYER_HEIGHT = WINDOW_SIZE[1] - constants.FLOOR_HEIGHT - PLAYER.image.get_height()
     PLAYER.set_position(constants.PLAYER_LEFT_OFFSET, PLAYER_HEIGHT)
 
-    # List of Levels
-    LEVELS = []
-    LEVELS.append(Level01(PLAYER))
-    
-    
+    # Current level
+    level = Level01(PLAYER)
 
     PYGAME_DISPLAY.fill(colors.WHITE)
 
