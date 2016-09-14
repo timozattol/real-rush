@@ -13,6 +13,10 @@ class Level(object):
         self.object_group.update(self.delta_pos(elapsed_time))
         self.player.update(elapsed_time)
 
+        spritecollide = pygame.sprite.spritecollide(self.player, self.object_group, False)
+        if len(spritecollide) > 0:
+            self.player.kill()
+
     def draw(self):
         #debug
         for obj in self.player_group:

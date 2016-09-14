@@ -36,7 +36,10 @@ class Level01(Level):
         super().update(elapsed_time)
 
         if self.player.state == "dead":
-            self.speed = 0.0
+            if self.speed <= 0:
+                self.speed = 0
+            else:
+                self.speed -= 10.0
 
         # Scroll and blit background
         self.display.blit(self.bg, (-self.bg_offset, 0))

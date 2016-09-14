@@ -1,7 +1,7 @@
 from pygame import Surface
 from pygame.sprite import Sprite
 
-from constants import TILE_WIDTH, TILE_HEIGHT, BG_SCROLL_SPEED
+from constants import TILE_WIDTH, TILE_HEIGHT
 from utils import pos_convert
 
 
