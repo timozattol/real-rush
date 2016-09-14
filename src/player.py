@@ -51,6 +51,9 @@ class Player(pygame.sprite.Sprite):
         self.image = self.run_animation.next_image()
         self.rect = self.image.get_rect()
 
+        # TODO remove hack
+        self.rect.width = self.rect.width / 1.5
+
         # The floor is scrolling left, thus velocity = 0 in x-axis
         self.velocity = (0, 0)
 
