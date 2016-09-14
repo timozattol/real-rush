@@ -6,7 +6,7 @@ from level import Level
 from prefabs import BlockPrefab
 from constants import BG_SCROLL_SPEED
 
-BG_IMAGE = pygame.image.load("../assets/city-background.png")
+BG_IMAGE = pygame.image.load("../assets/png/city-background.png")
 BG_RESOLUTION = BG_IMAGE.get_rect().size
 
 class Level01(Level):

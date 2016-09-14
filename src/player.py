@@ -12,7 +12,7 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, color=colors.BLUE, width=16, height=16, lives=3, stamina=2):
         super().__init__()
 
-        loader = SpriteSheetLoader("../assets/player_spritesheet.png",
+        loader = SpriteSheetLoader("../assets/png/player_spritesheet_cape.png",
                                    (512, 576), (64, 64))
 
         running_positions = [
