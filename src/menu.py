@@ -100,8 +100,13 @@ class Menu():
 
         # Blit rest of background
         self.display.blit(self.bg_mountains, (-self.bg_offset, 0))
+        self.display.blit(self.bg_mountains, (self.bg_mountains.get_width()-self.bg_offset, 0))
+
         self.display.blit(self.bg_trees_far, (-self.tree_far_offset, 0))
+        self.display.blit(self.bg_trees_far, (self.bg_trees_far.get_width()-self.tree_far_offset, 0))
+
         self.display.blit(self.bg_trees_front, (-self.tree_front_offset, 0))
+        self.display.blit(self.bg_trees_front, (self.bg_trees_front.get_width()-self.tree_front_offset, 0))
 
     def blit_if_inside(self, text_if_yes, text_if_no, cursor_pos, rect):
         """Blit one text if cursor is in rect, else the other text"""
