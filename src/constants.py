@@ -14,4 +14,4 @@ BG_SCROLL_SPEED = 350
 MENU_MUSIC = "../assets/music/justice.ogg"
 TITLE_FONT_NAME = "../assets/fonts/Alien-Encounters-Italic.ttf"
 MENU_FONT_NAME = "../assets/fonts/Alien-Encounters-Solid-Italic.ttf"
-MENU_EFFECT = "../assets/effects/click.wav"
+MENU_EFFECT = "../assets/effects/click.ogg"
