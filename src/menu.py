@@ -2,8 +2,11 @@
 """Real-Rush menu"""
 
 import pygame
+
 import colors
 import random
+from constants import TITLE_FONT_NAME, MENU_FONT_NAME
+
 
 BG_MOON = pygame.image.load("../assets/png/layers/parallax-mountain-bg.png")
 BG_MOON_RES = BG_MOON.get_rect().size
@@ -24,15 +27,15 @@ class Menu():
         self.player = player
         self.display = display
         # Background moon
-        self.bg_moon = self._load_bg_images(BG_MOON,BG_MOON_RES)
+        self.bg_moon = self._load_bg_images(BG_MOON, BG_MOON_RES)
         # Background mountains far
-        self.bg_mountains_far = self._load_bg_images(BG_MOUNTAINS_FAR,BG_MOUNTAINS_FAR_RES)
-        #Background mountains
-        self.bg_mountains = self._load_bg_images(BG_MOUNTAINS,BG_MOUNTAINS_RES)
-        #Background trees
-        self.bg_trees_far = self._load_bg_images(BG_TREES_FAR,BG_TREES_FAR_RES)
-        #Foreground trees
-        self.bg_trees_front = self._load_bg_images(BG_TREES_FRONT,BG_TREES_FRONT_RES)
+        self.bg_mountains_far = self._load_bg_images(BG_MOUNTAINS_FAR, BG_MOUNTAINS_FAR_RES)
+        # Background mountains
+        self.bg_mountains = self._load_bg_images(BG_MOUNTAINS, BG_MOUNTAINS_RES)
+        # Background trees
+        self.bg_trees_far = self._load_bg_images(BG_TREES_FAR, BG_TREES_FAR_RES)
+        # Foreground trees
+        self.bg_trees_front = self._load_bg_images(BG_TREES_FRONT, BG_TREES_FRONT_RES)
 
         self.bg_offset = 0.0
         self.tree_far_offset = 0.0
@@ -42,12 +45,14 @@ class Menu():
         self.trees_far_speed = 8
         self.trees_front_speed = 30
 
+        # Menu offsets
         offset_menu_x = 55
         offset_menu_y = 138
         space_menu = 45
 
-        TITLE_FONT = pygame.font.Font("../assets/fonts/Alien-Encounters-Italic.ttf", 60)
-        MENU_FONT = pygame.font.Font("../assets/fonts/Alien-Encounters-Solid-Italic.ttf", 35)
+        # Fonts
+        TITLE_FONT = pygame.font.Font(TITLE_FONT_NAME, 60)
+        MENU_FONT = pygame.font.Font(MENU_FONT_NAME, 35)
 
         # Title
         self.real_rush_text = TITLE_FONT.render("real rush", True, colors.WHITE)
@@ -110,7 +115,7 @@ class Menu():
         return rect.collidepoint(cursor_pos)
 
 
-    def _load_bg_images(self, image,res):
+    def _load_bg_images(self, image, res):
         ret = pygame.Surface(res, pygame.SRCALPHA, 32)
         ret = ret.convert_alpha()
         ret.blit(image, (0, 0))
