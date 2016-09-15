@@ -63,8 +63,8 @@ class Player(pygame.sprite.Sprite):
         # Move according to velocity
         self.rect.move_ip(self.velocity[0] * elapsed_time, self.velocity[1] * elapsed_time)
 
-        # If not running and touches floor, starts running
-        if self.state != "running" and self.is_on_floor():
+        # If touches floor, starts running
+        if self.is_on_floor():
             self.set_position(self.rect.x, constants.WINDOW_SIZE[1] \
             - constants.FLOOR_HEIGHT - self.image.get_height())
 
@@ -72,8 +72,10 @@ class Player(pygame.sprite.Sprite):
             self.state = "running"
         # Else if jumping, subject to gravity
         elif self.state == "jumping":
-            self.velocity = (self.velocity[0], self.velocity[1] \
-            + (constants.GRAVITY * elapsed_time))
+            self.velocity = (
+                self.velocity[0],
+                self.velocity[1] + (constants.GRAVITY * elapsed_time)
+            )
 
         # Update sprite elapsed time
         self.sprite_elapsed_time += elapsed_time
@@ -90,6 +92,18 @@ class Player(pygame.sprite.Sprite):
             elif self.state == "dead":
                 self.image = self.die_animation.next_image()
 
+    def handle_collision(self, sprite):
+        # Check if collision is from the side or the top
+        diff_vert = sprite.rect.top - self.rect.bottom
+        diff_hor = sprite.rect.left - self.rect.right
+        if  diff_hor > diff_vert :
+            # Collision from the left, stick to the rect
+            self.set_position(sprite.rect.x - self.rect.width, self.rect.y)
+        else:
+            # Collision from the top, start running on block
+            self.set_position(self.rect.x, sprite.rect.top - self.rect.height)
+            self.state = "running"
+
     def is_on_floor(self):
         return self.rect.bottom > constants.WINDOW_SIZE[1] - constants.FLOOR_HEIGHT
 
@@ -104,6 +118,7 @@ class Player(pygame.sprite.Sprite):
         if self.state == "running":
             self.state = "jumping"
             self.velocity = (self.velocity[0], -constants.JUMPING_POWER)
+
     def kill(self):
         self.velocity = (0, 0)
         self.state = "dead"
