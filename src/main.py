@@ -54,6 +54,11 @@ if __name__ == "__main__":
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     RUNNING = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                ## if mouse is pressed get position of cursor ##
+               if pygame.mouse.get_pressed()[0] == 1:
+                   pos = pygame.mouse.get_pos()
+                   manager.mouse_pressed(pos)
 
         KEYS_PRESSED = pygame.key.get_pressed()
 
