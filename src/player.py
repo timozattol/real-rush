@@ -90,6 +90,18 @@ class Player(pygame.sprite.Sprite):
             elif self.state == "dead":
                 self.image = self.die_animation.next_image()
 
+    def handle_collision(self, sprite):
+        # Check if collision is from the side or the top
+        diff_vert = sprite.rect.top - self.rect.bottom
+        diff_hor = sprite.rect.left - self.rect.right
+        if  diff_hor > diff_vert :
+            # Collision from the left, stick to the rect
+            self.set_position(sprite.rect.x - self.rect.width, self.rect.y)
+        else:
+            # Collision from the top, start running on block
+            self.set_position(self.rect.x, sprite.rect.top - self.rect.height)
+            self.state = "running"
+
     def is_on_floor(self):
         return self.rect.bottom > constants.WINDOW_SIZE[1] - constants.FLOOR_HEIGHT
 
@@ -104,6 +116,7 @@ class Player(pygame.sprite.Sprite):
         if self.state == "running":
             self.state = "jumping"
             self.velocity = (self.velocity[0], -constants.JUMPING_POWER)
+
     def kill(self):
         self.velocity = (0, 0)
         self.state = "dead"

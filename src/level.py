@@ -15,23 +15,18 @@ class Level(object):
         self.deadly_blocks.update(delta_pos)
         self.platform_blocks.update(delta_pos)
         self.player.update(elapsed_time)
+        self.handle_collisions()
 
-        spritecollide = pygame.sprite.spritecollide(self.player, self.deadly_blocks, False)
-        if len(spritecollide) > 0:
+    def handle_collisions(self):
+        # Count number of collisions
+        collide_deadly = pygame.sprite.spritecollide(self.player, self.deadly_blocks, False)
+        collide_platform = pygame.sprite.spritecollide(self.player, self.platform_blocks, False)
+        if len(collide_deadly) > 0:
             self.player.kill()
+        elif len(collide_platform) > 0:
+            for sprite in collide_platform:
+                self.player.handle_collision(sprite)
 
-        # TODO maybe refactor ;)
-        spritecollide = pygame.sprite.spritecollide(self.player, self.platform_blocks, False)
-        if len(spritecollide) > 0:
-            diff_vert = spritecollide[0].rect.top - self.player.rect.bottom
-            diff_hor = spritecollide[0].rect.left - self.player.rect.right
-
-            if  diff_hor > diff_vert :
-                # Colision from the left
-                self.player.set_position(spritecollide[0].rect.x - 32, self.player.rect.y)
-            else:
-                self.player.set_position(self.player.rect.x, spritecollide[0].rect.top - self.player.rect.height)
-                self.player.state = "running"
 
     def draw(self):
         self.deadly_blocks.draw(self.display)
