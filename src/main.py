@@ -58,7 +58,7 @@ if __name__ == "__main__":
                 ## if mouse is pressed get position of cursor ##
                if pygame.mouse.get_pressed()[0] == 1:
                    pos = pygame.mouse.get_pos()
-                   manager.mouse_pressed(pos)
+                   manager.mouse_left_click(pos)
 
         KEYS_PRESSED = pygame.key.get_pressed()
 
