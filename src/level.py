@@ -35,6 +35,6 @@ class Level(object):
     def delta_pos(self, elapsed_time):
         return self.speed * elapsed_time
 
-    def mouse_left_click(self, cursor_pos):
+    def mouse_left_click(self, cursor_pos, game_manager):
         # No mouse interaction in levels by default
         pass

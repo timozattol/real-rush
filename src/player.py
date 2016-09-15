@@ -57,6 +57,10 @@ class Player(pygame.sprite.Sprite):
         # The floor is scrolling left, thus velocity = 0 in x-axis
         self.velocity = (0, 0)
 
+        # Set Player height right "on the floor"
+        height = constants.WINDOW_SIZE[1] - constants.FLOOR_HEIGHT - self.image.get_height()
+        self.set_position(constants.PLAYER_LEFT_OFFSET, height)
+
     def update(self, elapsed_time):
         """ Update the sprite at every frame, according to elapsed_time between
         last frame and current frame """
