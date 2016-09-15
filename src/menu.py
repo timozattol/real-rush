@@ -42,13 +42,7 @@ class Menu():
 
     def update(self, elapsed_time):
 
-        # Scroll and blit background
-        self.display.blit(self.bg_moon, (0, 0))
-        self.display.blit(self.bg_mountains_far, (0, 0))
-        self.display.blit(self.bg_mountains, (-self.bg_offset, 0))
-        self.display.blit(self.bg_trees_far, (-self.tree_far_offset, 0))
-        self.display.blit(self.bg_trees_front, (-self.tree_front_offset, 0))
-
+        # Scroll background
         self.bg_offset += self.mountains_speed * elapsed_time
         self.tree_far_offset += self.trees_far_speed * elapsed_time
         self.tree_front_offset += self.trees_front_speed * elapsed_time
@@ -56,6 +50,14 @@ class Menu():
         self.bg_offset %= self.bg_mountains.get_width()
         self.tree_far_offset %= self.bg_trees_far.get_width()
         self.tree_front_offset %= self.bg_trees_front.get_width()
+
+    def draw(self):
+        # Blit background
+        self.display.blit(self.bg_moon, (0, 0))
+        self.display.blit(self.bg_mountains_far, (0, 0))
+        self.display.blit(self.bg_mountains, (-self.bg_offset, 0))
+        self.display.blit(self.bg_trees_far, (-self.tree_far_offset, 0))
+        self.display.blit(self.bg_trees_front, (-self.tree_front_offset, 0))
 
 
     def _load_bg_images(self, image,res):

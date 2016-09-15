@@ -10,3 +10,5 @@ TILE_WIDTH = 32
 TILE_HEIGHT = 32
 
 BG_SCROLL_SPEED = 350
+
+MENU_MUSIC = "../assets/justice.mp3"

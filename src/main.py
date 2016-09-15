@@ -6,9 +6,9 @@ import pygame
 
 from rush_game import RushGame
 from player import Player
-from block import Block
 from level_01 import Level01
-from world_manager import WorldManager
+from menu import Menu
+from game_manager import GameManager
 import colors
 import constants
 
@@ -36,9 +36,9 @@ if __name__ == "__main__":
     PLAYER_HEIGHT = WINDOW_SIZE[1] - constants.FLOOR_HEIGHT - PLAYER.image.get_height()
     PLAYER.set_position(constants.PLAYER_LEFT_OFFSET, PLAYER_HEIGHT)
 
-    # Current current_level
-    # current_level = Level01(PLAYER, PYGAME_DISPLAY)
-    manager = WorldManager(PLAYER, PYGAME_DISPLAY)
+    menu = Menu(PLAYER, PYGAME_DISPLAY)
+    levels = [Level01(PLAYER, PYGAME_DISPLAY)]
+    manager = GameManager(menu, levels)
     RUNNING = True
     CLOCK = pygame.time.Clock()
 
@@ -63,7 +63,9 @@ if __name__ == "__main__":
         if KEYS_PRESSED[pygame.K_k]:
             PLAYER.kill()
         if KEYS_PRESSED[pygame.K_r]:
-            current_level.reset()
+            manager.reset_level()
+        if KEYS_PRESSED[pygame.K_m]:
+            manager.open_menu()
 
         # Clear Screen
         PYGAME_DISPLAY.fill(colors.WHITE)
