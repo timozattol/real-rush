@@ -20,3 +20,9 @@ class GameManager:
         self.current_panel = self.menu
         music.load(MENU_MUSIC)
         music.play(-1)
+
+    def start_level_1(self):
+        pass
+
+    def mouse_left_click(self, cursor_pos):
+        self.current_panel.mouse_left_click(cursor_pos, self)

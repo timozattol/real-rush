@@ -5,7 +5,7 @@ import pygame
 
 import colors
 import random
-from constants import TITLE_FONT_NAME, MENU_FONT_NAME
+from constants import TITLE_FONT_NAME, MENU_FONT_NAME, MENU_EFFECT
 
 
 BG_MOON = pygame.image.load("../assets/png/layers/parallax-mountain-bg.png")
@@ -22,7 +22,8 @@ BG_TREES_FAR_RES = BG_TREES_FAR.get_rect().size
 
 BG_TREES_FRONT = pygame.image.load("../assets/png/layers/parallax-mountain-foreground-trees.png")
 BG_TREES_FRONT_RES = BG_TREES_FRONT.get_rect().size
-class Menu():
+
+class Menu:
     def __init__(self, player, display):
         self.player = player
         self.display = display
@@ -72,6 +73,9 @@ class Menu():
         self.exit_text_fade = MENU_FONT.render("exit", True, colors.WHITE_PINKISH)
         self.exit_rect = self.exit_text.get_rect().move(offset_menu_x, offset_menu_y + 2 * space_menu)
 
+        # Effects
+        self.menu_effect = pygame.mixer.Sound(MENU_EFFECT)
+
     def update(self, elapsed_time):
 
         # Scroll background
@@ -82,6 +86,14 @@ class Menu():
         self.bg_offset %= self.bg_mountains.get_width()
         self.tree_far_offset %= self.bg_trees_far.get_width()
         self.tree_front_offset %= self.bg_trees_front.get_width()
+
+        # Bip if cursor inside menu item
+        cursor_pos = pygame.mouse.get_pos()
+
+        menu_rects = [self.start_rect, self.credits_rect, self.exit_rect]
+
+        if any(self.is_inside(cursor_pos, rect) for rect in menu_rects):
+            self.menu_effect.play()
 
     def draw(self):
         # Blit background
@@ -113,6 +125,15 @@ class Menu():
     def is_inside(self, cursor_pos, rect):
         """ Return True if cursor_pos is in rect """
         return rect.collidepoint(cursor_pos)
+
+    def mouse_left_click(self, cursor_pos, game_manager):
+        if self.is_inside(cursor_pos, self.start_rect):
+            game_manager.start_level_1()
+        elif self.is_inside(cursor_pos, self.credits_rect):
+            pass
+        elif self.is_inside(cursor_pos, self.exit_rect):
+            pygame.quit()
+            quit()
 
 
     def _load_bg_images(self, image, res):

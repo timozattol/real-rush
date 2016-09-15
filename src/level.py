@@ -27,7 +27,6 @@ class Level(object):
             for sprite in collide_platform:
                 self.player.handle_collision(sprite)
 
-
     def draw(self):
         self.deadly_blocks.draw(self.display)
         self.platform_blocks.draw(self.display)
@@ -35,3 +34,7 @@ class Level(object):
 
     def delta_pos(self, elapsed_time):
         return self.speed * elapsed_time
+
+    def mouse_left_click(self, cursor_pos):
+        # No mouse interaction in levels by default
+        pass

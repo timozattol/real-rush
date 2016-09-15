@@ -17,6 +17,7 @@ if __name__ == "__main__":
     # Tell X11 to center window
     os.environ['SDL_VIDEO_CENTERED'] = '1'
 
+    pygame.mixer.pre_init(44100, -16, 2, 4096)
     pygame.init()
 
     # Game base settings
