@@ -88,7 +88,7 @@ class Menu():
         self.display.blit(self.real_rush_text, (450 + 2 + random_offset_title_x, 1))
         cursor_pos = pygame.mouse.get_pos()
 
-
+        # Blit Menus
         self.blit_if_inside(self.start_text, self.start_text_fade, cursor_pos, self.start_rect)
         self.blit_if_inside(self.credits_text, self.credits_text_fade, cursor_pos, self.credits_rect)
         self.blit_if_inside(self.exit_text, self.exit_text_fade, cursor_pos, self.exit_rect)
@@ -99,12 +99,14 @@ class Menu():
         self.display.blit(self.bg_trees_front, (-self.tree_front_offset, 0))
 
     def blit_if_inside(self, text_if_yes, text_if_no, cursor_pos, rect):
+        """Blit one text if cursor is in rect, else the other text"""
         if self.is_inside(cursor_pos, rect):
             self.display.blit(text_if_yes, rect.topleft)
         else:
             self.display.blit(text_if_no, rect.topleft)
 
     def is_inside(self, cursor_pos, rect):
+        """ Return True if cursor_pos is in rect """
         return rect.collidepoint(cursor_pos)
 
 
