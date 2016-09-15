@@ -2,6 +2,8 @@
 """Real-Rush menu"""
 
 import pygame
+import colors
+import random
 
 BG_MOON = pygame.image.load("../assets/png/layers/parallax-mountain-bg.png")
 BG_MOON_RES = BG_MOON.get_rect().size
@@ -40,6 +42,31 @@ class Menu():
         self.trees_far_speed = 8
         self.trees_front_speed = 30
 
+        offset_menu_x = 55
+        offset_menu_y = 138
+        space_menu = 45
+
+        TITLE_FONT = pygame.font.Font("../assets/fonts/Alien-Encounters-Italic.ttf", 60)
+        MENU_FONT = pygame.font.Font("../assets/fonts/Alien-Encounters-Solid-Italic.ttf", 35)
+
+        # Title
+        self.real_rush_text = TITLE_FONT.render("real rush", True, colors.WHITE)
+
+        # Menu start
+        self.start_text = MENU_FONT.render("start", True, colors.WHITE)
+        self.start_text_fade = MENU_FONT.render("start", True, colors.WHITE_PINKISH)
+        self.start_rect = self.start_text.get_rect().move(offset_menu_x + 20, offset_menu_y)
+
+        # Menu credits
+        self.credits_text = MENU_FONT.render("credits", True, colors.WHITE)
+        self.credits_text_fade = MENU_FONT.render("credits", True, colors.WHITE_PINKISH)
+        self.credits_rect = self.credits_text.get_rect().move(offset_menu_x + 10, offset_menu_y + space_menu)
+
+        # Menu exit
+        self.exit_text = MENU_FONT.render("exit", True, colors.WHITE)
+        self.exit_text_fade = MENU_FONT.render("exit", True, colors.WHITE_PINKISH)
+        self.exit_rect = self.exit_text.get_rect().move(offset_menu_x, offset_menu_y + 2 * space_menu)
+
     def update(self, elapsed_time):
 
         # Scroll background
@@ -55,9 +82,30 @@ class Menu():
         # Blit background
         self.display.blit(self.bg_moon, (0, 0))
         self.display.blit(self.bg_mountains_far, (0, 0))
+
+        # Blit Text
+        random_offset_title_x = random.randrange(0, 3)
+        self.display.blit(self.real_rush_text, (450 + 2 + random_offset_title_x, 1))
+        cursor_pos = pygame.mouse.get_pos()
+
+
+        self.blit_if_inside(self.start_text, self.start_text_fade, cursor_pos, self.start_rect)
+        self.blit_if_inside(self.credits_text, self.credits_text_fade, cursor_pos, self.credits_rect)
+        self.blit_if_inside(self.exit_text, self.exit_text_fade, cursor_pos, self.exit_rect)
+
+        # Blit rest of background
         self.display.blit(self.bg_mountains, (-self.bg_offset, 0))
         self.display.blit(self.bg_trees_far, (-self.tree_far_offset, 0))
         self.display.blit(self.bg_trees_front, (-self.tree_front_offset, 0))
+
+    def blit_if_inside(self, text_if_yes, text_if_no, cursor_pos, rect):
+        if self.is_inside(cursor_pos, rect):
+            self.display.blit(text_if_yes, rect.topleft)
+        else:
+            self.display.blit(text_if_no, rect.topleft)
+
+    def is_inside(self, cursor_pos, rect):
+        return rect.collidepoint(cursor_pos)
 
 
     def _load_bg_images(self, image,res):
