@@ -75,6 +75,7 @@ class Menu:
 
         # Effects
         self.menu_effect = pygame.mixer.Sound(MENU_EFFECT)
+        self.cursor_in_menu = False
 
     def update(self, elapsed_time):
 
@@ -93,7 +94,12 @@ class Menu:
         menu_rects = [self.start_rect, self.credits_rect, self.exit_rect]
 
         if any(self.is_inside(cursor_pos, rect) for rect in menu_rects):
-            self.menu_effect.play()
+            # If inside a menu for the first time
+            if not self.cursor_in_menu:
+                self.menu_effect.play()
+                self.cursor_in_menu = True
+        else:
+            self.cursor_in_menu = False
 
     def draw(self):
         # Blit background
@@ -133,7 +139,7 @@ class Menu:
 
     def mouse_left_click(self, cursor_pos, game_manager):
         if self.is_inside(cursor_pos, self.start_rect):
-            game_manager.start_level_1()
+            game_manager.start_game()
         elif self.is_inside(cursor_pos, self.credits_rect):
             pass
         elif self.is_inside(cursor_pos, self.exit_rect):
