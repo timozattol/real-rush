@@ -8,6 +8,7 @@ from rush_game import RushGame
 from player import Player
 from block import Block
 from level_01 import Level01
+from world_manager import WorldManager
 import colors
 import constants
 
@@ -35,9 +36,9 @@ if __name__ == "__main__":
     PLAYER_HEIGHT = WINDOW_SIZE[1] - constants.FLOOR_HEIGHT - PLAYER.image.get_height()
     PLAYER.set_position(constants.PLAYER_LEFT_OFFSET, PLAYER_HEIGHT)
 
-    # Current level
-    level = Level01(PLAYER, PYGAME_DISPLAY)
-
+    # Current current_level
+    # current_level = Level01(PLAYER, PYGAME_DISPLAY)
+    manager = WorldManager(PLAYER, PYGAME_DISPLAY)
     RUNNING = True
     CLOCK = pygame.time.Clock()
 
@@ -62,15 +63,13 @@ if __name__ == "__main__":
         if KEYS_PRESSED[pygame.K_k]:
             PLAYER.kill()
         if KEYS_PRESSED[pygame.K_r]:
-            level.reset()
+            current_level.reset()
 
         # Clear Screen
         PYGAME_DISPLAY.fill(colors.WHITE)
 
-        # Update & draw the level
-        level.update(ELAPSED_TIME)
-        level.draw()
-
+        # Update & draw the current_level
+        manager.update(ELAPSED_TIME)
         # Update & draw platforms
         pygame.display.update()
 
