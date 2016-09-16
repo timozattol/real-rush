@@ -17,6 +17,13 @@ class Level(object):
         self.player.update(elapsed_time)
         self.handle_collisions()
 
+        # If dead, gradually slow down scroll to zero
+        if self.player.state == "dead":
+            if self.speed <= 0:
+                self.speed = 0
+            else:
+                self.speed -= 10.0
+
     def handle_collisions(self):
         # Count number of collisions
         collide_deadly = pygame.sprite.spritecollide(self.player, self.deadly_blocks, False)

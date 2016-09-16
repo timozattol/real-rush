@@ -12,6 +12,9 @@ BG_RES = BG.get_rect().size
 
 BG_FAR = pygame.image.load("../assets/png/cemetary.png")
 BG_FAR_RES = BG_FAR.get_rect().size
+BG_FAR_RATIO = 0.7
+BG_FAR_POS = (-350, 0)
+
 
 class Level01(Level):
     def __init__(self, player, display):
@@ -48,11 +51,8 @@ class Level01(Level):
         # Background
         self.bg = load_bg_images_scale_y(BG, BG_RES, self.display)
 
-        ratio = 0.7
-        ret = pygame.Surface(BG_FAR_RES, pygame.SRCALPHA, 32)
-        ret = ret.convert_alpha()
-        ret = pygame.transform.scale(BG_FAR, (int(ratio * BG_FAR_RES[0]), int(ratio * BG_FAR_RES[1])))
-        self.bg_far = ret
+        # Baground far (with custom ratio)
+        self.bg_far = load_bg_images_scale_y(BG_FAR, BG_FAR_RES, self.display, BG_FAR_RATIO)
 
         # Scrolling parameter
         self.bg_offset = 0.0
@@ -63,14 +63,10 @@ class Level01(Level):
     def update(self, elapsed_time):
         super().update(elapsed_time)
 
-        if self.player.state == "dead":
-            if self.speed <= 0:
-                self.speed = 0
-            else:
-                self.speed -= 10.0
+        # Blit background far
+        self.display.blit(self.bg_far, BG_FAR_POS)
 
         # Scroll and blit background
-        self.display.blit(self.bg_far, (-350, 0))
         self.display.blit(self.bg, (-self.bg_offset, 0))
         self.display.blit(self.bg, (self.bg.get_width() - self.bg_offset, 0))
         self.bg_offset += self.delta_pos(elapsed_time)
