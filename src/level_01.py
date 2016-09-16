@@ -39,7 +39,9 @@ class Level01(Level):
         ]
 
         platform_sprites = [
-            BLACK_PREFAB.new_sprite((10, 2))
+            BLACK_PREFAB.new_sprite((10, 2)),
+            BLACK_PREFAB.new_sprite((15, 2)),
+
         ]
 
         for sprite in deadly_sprites:
