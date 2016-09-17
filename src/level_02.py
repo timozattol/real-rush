@@ -48,13 +48,15 @@ class Level02(Level):
 
         # Background
         self.bg = load_bg_images_scale_y(BG, BG_RES, self.display)
+
+        # Baground far (with custom ratio)
         self.bg_far = load_bg_images_scale_y(BG_FAR, BG_FAR_RES, self.display, BG_FAR_RATIO)
 
         # Scrolling parameter
         self.bg_offset = 0.0
 
         self.speed = BG_SCROLL_SPEED
-    
+
     def load_music(self):
         music.load(LEVEL2_MUSIC)
         music.play(-1)
@@ -62,14 +64,10 @@ class Level02(Level):
     def update(self, elapsed_time):
         super().update(elapsed_time)
 
-        if self.player.state == "dead":
-            if self.speed <= 0:
-                self.speed = 0
-            else:
-                self.speed -= 10.0
+        # Blit background far
+        self.display.blit(self.bg_far, (0, 0))
 
         # Scroll and blit background
-        self.display.blit(self.bg_far, (0, 0))
         self.display.blit(self.bg, (-self.bg_offset, 0))
         self.display.blit(self.bg, (self.bg.get_width() - self.bg_offset, 0))
         self.bg_offset += self.delta_pos(elapsed_time)

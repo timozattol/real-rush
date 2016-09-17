@@ -47,6 +47,8 @@ class Level03(Level):
 
         # Background
         self.bg = load_bg_images_scale_y(BG, BG_RES, self.display)
+
+        # Baground far (with custom ratio)
         self.bg_far = load_bg_images_scale_y(BG_FAR, BG_FAR_RES, self.display)
 
         # Scrolling parameter
@@ -61,12 +63,6 @@ class Level03(Level):
 
     def update(self, elapsed_time):
         super().update(elapsed_time)
-
-        if self.player.state == "dead":
-            if self.speed <= 0:
-                self.speed = 0
-            else:
-                self.speed -= 10.0
 
         # Scroll and blit background
         self.display.blit(self.bg_far, (-self.bg_offset, 0))
