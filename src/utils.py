@@ -9,9 +9,12 @@ def pos_convert(pos):
 
     return (x, y)
 
-def load_bg_images_scale_y(image, res, display):
-    ret = pygame.Surface(res, pygame.SRCALPHA, 32)
-    ret = ret.convert_alpha()
-    ratio = display.get_size()[1] / res[1]
-    ret = pygame.transform.scale(image, (int(res[0] * ratio), int(res[1] * ratio)))
-    return ret
+def load_bg_images_scale_y(image, res, display, custom_ratio=None):
+    bg = pygame.Surface(res, pygame.SRCALPHA, 32)
+    bg = bg.convert_alpha()
+    if custom_ratio:
+        ratio = custom_ratio
+    else:
+        ratio = display.get_size()[1] / res[1]
+    bg = pygame.transform.scale(image, (int(res[0] * ratio), int(res[1] * ratio)))
+    return bg
