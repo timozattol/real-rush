@@ -8,8 +8,9 @@ def pos_convert(pos):
     y = WINDOW_SIZE[1] - FLOOR_HEIGHT - pos[1] * TILE_HEIGHT
 
     return (x, y)
-
+    
 def load_bg_images_scale_y(image, res, display, custom_ratio=None):
+    """Convert and scale an image"""
     bg = pygame.Surface(res, pygame.SRCALPHA, 32)
     bg = bg.convert_alpha()
     if custom_ratio:

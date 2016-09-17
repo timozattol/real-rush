@@ -12,6 +12,7 @@ BG_RES = BG.get_rect().size
 
 BG_FAR = pygame.image.load("../assets/png/peak_moon.png")
 BG_FAR_RES = BG_FAR.get_rect().size
+BG_FAR_RATIO = 1.2
 
 class Level02(Level):
     def __init__(self, player, display):
@@ -47,13 +48,7 @@ class Level02(Level):
 
         # Background
         self.bg = load_bg_images_scale_y(BG, BG_RES, self.display)
-
-        ratio = self.display.get_size()[1]/BG_FAR_RES[1]
-        ratio = 1.2
-        ret = pygame.Surface(BG_FAR_RES, pygame.SRCALPHA, 32)
-        ret = ret.convert_alpha()
-        ret = pygame.transform.scale(BG_FAR, (int(ratio * BG_FAR_RES[0]), int(ratio * BG_FAR_RES[1])))
-        self.bg_far = ret
+        self.bg_far = load_bg_images_scale_y(BG_FAR, BG_FAR_RES, self.display, BG_FAR_RATIO)
 
         # Scrolling parameter
         self.bg_offset = 0.0
