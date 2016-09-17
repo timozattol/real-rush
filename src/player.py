@@ -97,10 +97,13 @@ class Player(pygame.sprite.Sprite):
                 self.image = self.die_animation.next_image()
 
     def handle_collision(self, sprite):
-        # Check if collision is from the side or the top
-        diff_vert = sprite.rect.top - self.rect.bottom
-        diff_hor = sprite.rect.left - self.rect.right
-        if  diff_hor > diff_vert :
+        diff_vert = self.rect.bottom - sprite.rect.top
+        safety_pixels = 40
+
+        # Check if collision is from the top, meaning that the rect of the
+        # player is above or slightly (safety_pixels) below the top of the
+        # rect of the sprite.
+        if diff_vert > 0 + safety_pixels :
             # Collision from the left, stick to the rect
             self.set_position(sprite.rect.x - self.rect.width, self.rect.y)
         else:

@@ -45,6 +45,8 @@ if __name__ == "__main__":
                     RUNNING = False
                 if event.key == pygame.K_r:
                     manager.reset_level()
+                if event.key == pygame.K_n:
+                    manager.next_level()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 ## if mouse is pressed get position of cursor ##
                if pygame.mouse.get_pressed()[0] == 1:

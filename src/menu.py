@@ -2,10 +2,11 @@
 """Real-Rush menu"""
 
 import pygame
-
+from pygame.mixer import music
 import colors
 import random
-from constants import TITLE_FONT_NAME, MENU_FONT_NAME, MENU_EFFECT
+from constants import TITLE_FONT_NAME, MENU_FONT_NAME, MENU_EFFECT, MENU_MUSIC
+from utils import load_bg_images_scale_y
 
 
 BG_MOON = pygame.image.load("../assets/png/layers/parallax-mountain-bg.png")
@@ -28,15 +29,15 @@ class Menu:
         self.player = player
         self.display = display
         # Background moon
-        self.bg_moon = self._load_bg_images(BG_MOON, BG_MOON_RES)
+        self.bg_moon = load_bg_images_scale_y(BG_MOON, BG_MOON_RES, self.display)
         # Background mountains far
-        self.bg_mountains_far = self._load_bg_images(BG_MOUNTAINS_FAR, BG_MOUNTAINS_FAR_RES)
+        self.bg_mountains_far = load_bg_images_scale_y(BG_MOUNTAINS_FAR, BG_MOUNTAINS_FAR_RES, self.display)
         # Background mountains
-        self.bg_mountains = self._load_bg_images(BG_MOUNTAINS, BG_MOUNTAINS_RES)
+        self.bg_mountains = load_bg_images_scale_y(BG_MOUNTAINS, BG_MOUNTAINS_RES, self.display)
         # Background trees
-        self.bg_trees_far = self._load_bg_images(BG_TREES_FAR, BG_TREES_FAR_RES)
+        self.bg_trees_far = load_bg_images_scale_y(BG_TREES_FAR, BG_TREES_FAR_RES, self.display)
         # Foreground trees
-        self.bg_trees_front = self._load_bg_images(BG_TREES_FRONT, BG_TREES_FRONT_RES)
+        self.bg_trees_front = load_bg_images_scale_y(BG_TREES_FRONT, BG_TREES_FRONT_RES, self.display)
 
         self.bg_offset = 0.0
         self.tree_far_offset = 0.0
@@ -76,6 +77,10 @@ class Menu:
         # Effects
         self.menu_effect = pygame.mixer.Sound(MENU_EFFECT)
         self.cursor_in_menu = False
+    
+    def load_music(self):
+        music.load(MENU_MUSIC)
+        music.play(-1)
 
     def update(self, elapsed_time):
 
@@ -150,7 +155,6 @@ class Menu:
     def _load_bg_images(self, image, res):
         ret = pygame.Surface(res, pygame.SRCALPHA, 32)
         ret = ret.convert_alpha()
-        ret.blit(image, (0, 0))
         ratio = self.display.get_size()[1] / res[1]
         ret = pygame.transform.scale(image, (int(res[0] * ratio), int(res[1] * ratio)))
         return ret

@@ -1,22 +1,20 @@
-"""Level 1 class"""
+"""Level 2 class"""
 import pygame
 from pygame.mixer import music
 import colors
 from level import Level
 from prefabs import BlockPrefab
-from constants import BG_SCROLL_SPEED, LEVEL1_MUSIC
+from constants import BG_SCROLL_SPEED, LEVEL2_MUSIC
 from utils import load_bg_images_scale_y
 
 BG = pygame.image.load("../assets/png/city-background-tests.png")
 BG_RES = BG.get_rect().size
 
-BG_FAR = pygame.image.load("../assets/png/cemetary.png")
+BG_FAR = pygame.image.load("../assets/png/peak_moon.png")
 BG_FAR_RES = BG_FAR.get_rect().size
-BG_FAR_RATIO = 0.7
-BG_FAR_POS = (-350, 0)
+BG_FAR_RATIO = 1.2
 
-
-class Level01(Level):
+class Level02(Level):
     def __init__(self, player, display):
         super().__init__(player, display)
 
@@ -39,9 +37,7 @@ class Level01(Level):
         ]
 
         platform_sprites = [
-            BLACK_PREFAB.new_sprite((10, 2)),
-            BLACK_PREFAB.new_sprite((15, 2)),
-
+            BLACK_PREFAB.new_sprite((10, 2))
         ]
 
         for sprite in deadly_sprites:
@@ -62,15 +58,14 @@ class Level01(Level):
         self.speed = BG_SCROLL_SPEED
 
     def load_music(self):
-        music.load(LEVEL1_MUSIC)
+        music.load(LEVEL2_MUSIC)
         music.play(-1)
-
 
     def update(self, elapsed_time):
         super().update(elapsed_time)
 
         # Blit background far
-        self.display.blit(self.bg_far, BG_FAR_POS)
+        self.display.blit(self.bg_far, (0, 0))
 
         # Scroll and blit background
         self.display.blit(self.bg, (-self.bg_offset, 0))
