@@ -1,10 +1,10 @@
 """Level 1 class"""
 import pygame
-
+from pygame.mixer import music
 import colors
 from level import Level
 from prefabs import BlockPrefab
-from constants import BG_SCROLL_SPEED
+from constants import BG_SCROLL_SPEED, LEVEL1_MUSIC
 from utils import load_bg_images_scale_y
 
 BG = pygame.image.load("../assets/png/city-background-tests.png")
@@ -60,6 +60,10 @@ class Level01(Level):
         self.bg_offset = 0.0
 
         self.speed = BG_SCROLL_SPEED
+
+    def load_music(self):
+        music.load(LEVEL1_MUSIC)
+        music.play(-1)
 
 
     def update(self, elapsed_time):

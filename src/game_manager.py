@@ -1,6 +1,6 @@
 from pygame.mixer import music
 
-from constants import MENU_MUSIC
+from constants import MENU_MUSIC, LEVEL1_MUSIC
 from menu import Menu
 from player import Player
 from level_01 import Level01
@@ -31,12 +31,12 @@ class GameManager:
 
     def open_menu(self):
         self.current_panel = Menu(Player(), self.display)
-        music.load(MENU_MUSIC)
-        music.play(-1)
+        self.current_panel.load_music()
 
     def start_game(self):
         self.reset_levels()
         self.current_panel = self.levels[0]
+        self.current_panel.load_music()
 
     def next_level(self):
         curr_index = self.levels.index(self.current_panel)
@@ -44,6 +44,7 @@ class GameManager:
             self.open_menu()
         else: 
             self.current_panel = self.levels[curr_index+1]
+            self.current_panel.load_music()
 
     def mouse_left_click(self, cursor_pos):
         self.current_panel.mouse_left_click(cursor_pos, self)

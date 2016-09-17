@@ -2,10 +2,10 @@
 """Real-Rush menu"""
 
 import pygame
-
+from pygame.mixer import music
 import colors
 import random
-from constants import TITLE_FONT_NAME, MENU_FONT_NAME, MENU_EFFECT
+from constants import TITLE_FONT_NAME, MENU_FONT_NAME, MENU_EFFECT, MENU_MUSIC
 from utils import load_bg_images_scale_y
 
 
@@ -77,6 +77,10 @@ class Menu:
         # Effects
         self.menu_effect = pygame.mixer.Sound(MENU_EFFECT)
         self.cursor_in_menu = False
+    
+    def load_music(self):
+        music.load(MENU_MUSIC)
+        music.play(-1)
 
     def update(self, elapsed_time):
 

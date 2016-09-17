@@ -12,6 +12,9 @@ TILE_HEIGHT = 32
 BG_SCROLL_SPEED = 350
 
 MENU_MUSIC = "../assets/music/justice.ogg"
+LEVEL1_MUSIC = "../assets/music/satisfaction.ogg"
+LEVEL2_MUSIC = "../assets/music/muscles.ogg"
+LEVEL3_MUSIC = "../assets/music/end_credit.ogg"
 TITLE_FONT_NAME = "../assets/fonts/Alien-Encounters-Italic.ttf"
 MENU_FONT_NAME = "../assets/fonts/Alien-Encounters-Solid-Italic.ttf"
 MENU_EFFECT = "../assets/effects/click.ogg"
