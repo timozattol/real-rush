@@ -98,7 +98,7 @@ class Player(pygame.sprite.Sprite):
 
     def handle_collision(self, sprite):
         diff_vert = self.rect.bottom - sprite.rect.top
-        safety_pixels = 20
+        safety_pixels = 40
 
         # Check if collision is from the top, meaning that the rect of the
         # player is above or slightly (safety_pixels) below the top of the
